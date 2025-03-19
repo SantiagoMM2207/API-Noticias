@@ -1,114 +1,135 @@
-// =============================
-// CONFIGURACIÓN INICIAL
-// =============================
-
-// Define cuántas noticias se mostrarán por página
+// Cantidad de noticias a mostrar por página
 let cantidadNoticias = 7;
 let pageFinal = cantidadNoticias;
 let pageInicial = 0;
-let temaActual = "Tecnología"; // Categoría por defecto
+let temaActual = "Tecnología";
 
-// =============================
-// MANEJO DE NOTICIAS DESDE LA API
-// =============================
-
-// Objeto para manejar la obtención y visualización de noticias
+// Objeto para gestionar la carga de noticias desde la API
 let noticias = {
-    apiKey: "76c9861cc7944a1b87fcc3ed4542ae5f", // Clave de acceso a la API
-
-    // Método para obtener noticias según la categoría dada
+    apiKey: "76c9861cc7944a1b87fcc3ed4542ae5f", // Clave de acceso a la API de noticias
     fetchNoticias: function (categoria) {
         fetch(
             `https://newsapi.org/v2/everything?q=${categoria}&language=es&apiKey=${this.apiKey}`
         )
-        .then(response => response.json()) // Convierte la respuesta en JSON
-        .then(data => this.displayNoticias(data)); // Llama a la función para mostrar las noticias
+        .then(response => response.json())
+        .then(data => this.displayNoticias(data));
     },
 
-    // Método que muestra las noticias en la página
+    // Muestra las noticias obtenidas de la API en la interfaz
     displayNoticias: function (data) {
-        // Si no hay artículos en la respuesta, mostrar un mensaje
-        if (!data.articles || data.articles.length === 0) {
-            document.querySelector(".container-noticias").innerHTML = "<p>No se encontraron noticias.</p>";
-            return;
-        }
-
-        // Limpiar la lista de noticias solo si es la primera carga de la página
         if (pageInicial == 0) {
-            document.querySelector(".container-noticias").innerHTML = "";
+            document.querySelector(".container-noticias").innerHTML = ""; // Limpia noticias anteriores
         }
 
-        // Iterar sobre las noticias disponibles hasta el límite definido
+        // Itera sobre las noticias recibidas y las agrega al DOM
         for (let i = pageInicial; i < Math.min(pageFinal, data.articles.length); i++) {
             const { title, urlToImage, publishedAt, source, url } = data.articles[i];
 
-            // Crear un contenedor para cada noticia
             let item = document.createElement("div");
             item.className = "item";
-            item.onclick = () => window.location.href = url; // Redirige al usuario al artículo completo
+            item.onclick = () => window.location.href = url; // Redirige a la noticia original
 
-            // Crear el título de la noticia
             let h2 = document.createElement("h2");
             h2.textContent = title;
 
-            // Si la noticia tiene una imagen, agregarla
-            if (urlToImage) {
+            if (urlToImage) { // Verifica si hay imagen disponible
                 let img = document.createElement("img");
                 img.src = urlToImage;
                 item.appendChild(img);
             }
 
-            // Crear un contenedor para la fecha y la fuente de la noticia
             let info_item = document.createElement("div");
             info_item.className = "info_item";
 
-            // Mostrar la fecha de publicación en formato DD-MM-YYYY
             let fecha = document.createElement("span");
             fecha.className = "fecha";
             fecha.textContent = publishedAt.split("T")[0].split("-").reverse().join("-");
 
-            // Mostrar la fuente de la noticia
             let fuente = document.createElement("span");
             fuente.className = "fuente";
             fuente.textContent = source.name;
 
-            // Agregar fecha y fuente al contenedor
             info_item.appendChild(fecha);
             info_item.appendChild(fuente);
 
-            // Agregar elementos al contenedor principal de la noticia
             item.appendChild(h2);
             item.appendChild(info_item);
             document.querySelector(".container-noticias").appendChild(item);
         }
+
+        // Agrega un botón "Ver más" si hay más noticias disponibles
+        if (!document.querySelector("#btnSiguiente") && pageFinal < data.articles.length) {
+            let btnSiguiente = document.createElement("span");
+            btnSiguiente.id = "btnSiguiente";
+            btnSiguiente.textContent = "Ver más";
+            btnSiguiente.onclick = siguiente;
+            document.querySelector(".container-noticias").appendChild(btnSiguiente);
+        }
     }
 };
 
-// =============================
-// FUNCIONES DE BÚSQUEDA
-// =============================
-
-// Función para buscar noticias de una categoría específica
+// Función para buscar noticias por categoría o tema
 function buscar(cat) {
-    pageInicial = 0; // Reiniciar la paginación
+    pageInicial = 0;
     pageFinal = cantidadNoticias;
-    temaActual = cat; // Actualizar el tema actual
-    noticias.fetchNoticias(cat); // Llamar a la función de obtención de noticias
+    temaActual = cat;
+    noticias.fetchNoticias(cat);
 }
 
-// Función para realizar una búsqueda con el término ingresado en el input
+// Función para buscar un tema ingresado por el usuario
 function buscarTema() {
-    let tema = document.querySelector("#busqueda").value.trim(); // Obtener el término ingresado
-    if (tema) {
-        buscar(tema); // Buscar el tema ingresado
+    let tema = document.querySelector("#busqueda").value;
+    buscar(tema);
+}
+
+// Función para cargar más noticias dinámicamente
+function siguiente() {
+    pageInicial = pageFinal + 1;
+    pageFinal += cantidadNoticias; // Ajusta el rango de noticias a cargar
+    document.querySelector("#btnSiguiente").remove(); // Elimina el botón para evitar duplicados
+    noticias.fetchNoticias(temaActual); // Carga más noticias del mismo tema
+}
+
+// Cargar noticias iniciales al abrir la página
+noticias.fetchNoticias(temaActual);
+
+// API Clima
+const apiKeyWeather = "545b737b0dc87f892387cb381d2b4bfe";
+
+// Obtiene los datos del clima en base a latitud y longitud
+function obtenerClima(lat, lon) {
+    fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKeyWeather}&units=metric&lang=es`
+    )
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("ciudad").textContent = data.name;
+        document.getElementById("temp").textContent = `${Math.round(data.main.temp)}°C`;
+        document.getElementById("icono-clima").src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    })
+    .catch(error => console.error("Error obteniendo el clima:", error));
+}
+
+// Obtiene la ubicación del usuario y llama a la API del clima
+function obtenerUbicacion() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                obtenerClima(lat, lon);
+            },
+            error => {
+                console.log("No se pudo obtener la ubicación:", error);
+                document.getElementById("ciudad").textContent = "Ubicación no permitida";
+                obtenerClima(4.6097, -74.0817); // Ubicación por defecto: Bogotá
+            }
+        );
     } else {
-        alert("Por favor, ingresa un tema de búsqueda."); // Mostrar alerta si el campo está vacío
+        console.log("Geolocalización no soportada por el navegador.");
+        obtenerClima(4.6097, -74.0817); // Bogotá por defecto
     }
 }
 
-// =============================
-// OBTENCIÓN DE CLIMA (A IMPLEMENTAR)
-// =============================
-
-// Llamar a la función para obtener la ubicación del usuario y mostrar el clima
+// Llamar la función de ubicación al cargar la página
 obtenerUbicacion();

@@ -1,14 +1,13 @@
-<!-- Documento principal del sitio web -->
 <!DOCTYPE html> 
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilo.css">  
-    <title>Súper Noticias</title>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="estilo.css"> 
+    <title>Súper Noticias</title> 
 </head>
 <body>
-    <!-- Encabezado con el logo del sitio -->
+    <!-- Encabezado de la página con el logo dentro de un enlace a la página principal -->
     <header>
         <h1>
             <a href="index.html">
@@ -17,7 +16,7 @@
         </h1>
     </header>
 
-    <!-- Menú de navegación con categorías de noticias -->
+    <!-- Menú de navegación con botones para filtrar noticias por categoría -->
     <nav>
         <ul class="categorias">
             <li><button onclick="buscar('tecnología')">Tecnología</button></li>
@@ -31,30 +30,30 @@
         </ul>
     </nav>
 
-    <!-- Sección de búsqueda y clima -->
+    <!-- Sección combinada para la barra de búsqueda y la información del clima -->
     <section class="busqueda-clima">
         <div class="busqueda">
-            <input type="text" placeholder="¿Qué desea buscar?" id="busqueda">
-            <button type="button" onclick="buscarTema()">Buscar</button>   
+            <input type="text" placeholder="Buscar más noticias" id="busqueda"> <!-- Campo de entrada para búsqueda de noticias -->
+            <button type="button" onclick="buscarTema()">Buscar</button>   <!-- Botón para ejecutar la búsqueda -->
         </div>
         <div class="clima">
-            <span id="ciudad">Cargando...</span>
-            <img id="icono-clima" src="img/iconoClima.png" alt="Icono del clima" width="30">
-            <span id="temp">--°C</span>
+            <span id="ciudad">Cargando...</span> <!-- Nombre de la ciudad obtenida desde la API del clima -->
+            <img id="icono-clima" src="img/iconoClima.png" alt="Icono del clima" width="30"> <!-- Icono representativo del clima -->
+            <span id="temp">--°C</span> <!-- Temperatura actual -->
         </div>
     </section>
 
-    <!-- Contenedor principal donde se mostrarán las noticias -->
+    <!-- Contenedor principal donde se cargarán dinámicamente las noticias -->
     <main>
         <div class="container-noticias"></div>
     </main>
 
-    <!-- Pie de página con información del creador -->
+    <!-- Pie de página con créditos -->
     <footer class="footer">
         <p>&copy; Elaborado por: Santiago Mendoza Meneses</p>
     </footer>
 
-    <!-- Script principal de la aplicación -->
+    <!-- Archivo JavaScript para la funcionalidad de la página -->
     <script src="app.js"></script>
 </body>
 </html>

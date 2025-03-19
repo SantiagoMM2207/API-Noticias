@@ -1,32 +1,20 @@
-/* =============================
-   ESTILOS GENERALES
-   ============================= */
-
-/* Contenedor general que establece un ancho máximo y centra el contenido */
+/* Contenedor general para centrar el contenido y limitar su ancho */
 .container {
     max-width: 1200px;
     margin: auto;
     padding: 20px;
 }
 
-/* =============================
-   ESTILOS DEL ENCABEZADO
-   ============================= */
-
-/* Estilos para el título principal */
+/* Estilos para el encabezado */
 h1 {
     text-align: center;
-    color: #fc0505;
+    color: #fc0505; /* Color rojo para el título principal */
 }
 
 h1 img {
     width: 200px;
     height: auto;
 }
-
-/* =============================
-   ESTILOS DE LA NAVEGACIÓN
-   ============================= */
 
 /* Estilos para la barra de navegación */
 nav {
@@ -40,6 +28,10 @@ nav ul {
     display: flex;
     justify-content: center;
     gap: 10px;
+}
+
+nav li {
+    display: inline-block;
 }
 
 nav button {
@@ -57,11 +49,7 @@ nav button:hover {
     background-color: #fc0505;
 }
 
-/* =============================
-   ESTILOS DE BUSCADOR Y CLIMA
-   ============================= */
-
-/* Contenedor del buscador y clima */
+/* Sección de búsqueda y clima */
 .busqueda-clima {
     display: flex;
     justify-content: space-between;
@@ -74,7 +62,15 @@ nav button:hover {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos del campo de búsqueda */
+/* Estilos para la barra de búsqueda */
+.busqueda {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 .busqueda input {
     flex: 1;
     max-width: 500px;
@@ -94,7 +90,11 @@ nav button:hover {
     font-size: 16px;
 }
 
-/* Estilos del clima */
+.busqueda button:hover {
+    background-color: #fc0505;
+}
+
+/* Estilos para la sección del clima */
 .clima {
     display: flex;
     align-items: center;
@@ -108,11 +108,16 @@ nav button:hover {
     transition: 0.3s;
 }
 
-/* =============================
-   ESTILOS DE LAS NOTICIAS
-   ============================= */
+.clima:hover {
+    background: linear-gradient(135deg, #0096c7, #48cae4);
+}
 
-/* Contenedor de noticias con diseño responsive */
+.clima img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Estilos para la sección de noticias */
 .container-noticias {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -128,10 +133,46 @@ nav button:hover {
     transition: 0.3s;
 }
 
-/* =============================
-   ESTILOS DEL FOOTER
-   ============================= */
+.container-noticias .item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
+.container-noticias .item img {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Estilos para el botón de cargar más noticias */
+#btnSiguiente {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin: 20px auto;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    gap: 5px;
+}
+
+#btnSiguiente span {
+    font-size: 14px;
+}
+
+#btnSiguiente:hover {
+    background-color: #185f75;
+}
+
+/* Estilos para el pie de página */
 .footer {
     background-color: #185f75;
     color: white;
@@ -139,4 +180,3 @@ nav button:hover {
     padding: 15px 0;
     margin-top: 20px;
 }
-
