@@ -1,0 +1,142 @@
+/* =============================
+   ESTILOS GENERALES
+   ============================= */
+
+/* Contenedor general que establece un ancho máximo y centra el contenido */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* =============================
+   ESTILOS DEL ENCABEZADO
+   ============================= */
+
+/* Estilos para el título principal */
+h1 {
+    text-align: center;
+    color: #fc0505;
+}
+
+h1 img {
+    width: 200px;
+    height: auto;
+}
+
+/* =============================
+   ESTILOS DE LA NAVEGACIÓN
+   ============================= */
+
+/* Estilos para la barra de navegación */
+nav {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+nav button {
+    background-color: #185f75;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+nav button:hover {
+    background-color: #fc0505;
+}
+
+/* =============================
+   ESTILOS DE BUSCADOR Y CLIMA
+   ============================= */
+
+/* Contenedor del buscador y clima */
+.busqueda-clima {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos del campo de búsqueda */
+.busqueda input {
+    flex: 1;
+    max-width: 500px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.busqueda button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Estilos del clima */
+.clima {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+/* =============================
+   ESTILOS DE LAS NOTICIAS
+   ============================= */
+
+/* Contenedor de noticias con diseño responsive */
+.container-noticias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+.container-noticias .item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+/* =============================
+   ESTILOS DEL FOOTER
+   ============================= */
+
+.footer {
+    background-color: #185f75;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
